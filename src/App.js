@@ -1,6 +1,7 @@
 import TabBar from "./components/TabBar";
 import Content from "./components/Content";
 import TabBar from "./components/TabBar";
+import { request } from "./components/api.js";
 
 export default function App($app) {
   this.state = {
@@ -10,15 +11,18 @@ export default function App($app) {
 
   const tabBar = new TabBar({
     initialState: '',
-    onClick: (name) => {
+    onClick: async(name) => {
       this.setState({
-        //문법 이해 X
+
+        //강의 차수 2. 2-2 3:00 부분
+        //문법 이해 X 
+        //스프레드 연산자?
         ...this.state,
           currentTab: name,
-          photos,
-      })
-    }
-    ,
+          photos : await request(name)
+      });
+    },
+
   });
   const content = new Content();
 
@@ -28,5 +32,17 @@ export default function App($app) {
     content.setState(this.state.photos);
   }
 
+  const init = () => {
+    try {
+      const initialPhotos = await request();
+      this.setState({
+        ...this.state,
+        photos:initialPhotos,
+      })
+    } catch(err) {
+      console.log(err);
+    }
+  };
 
+  init();
 }
