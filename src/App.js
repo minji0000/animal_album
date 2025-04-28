@@ -1,6 +1,5 @@
-import TabBar from "./components/TabBar";
+import TabBar from "./components/TabBar.js";
 import Content from "./components/Content";
-import TabBar from "./components/TabBar";
 import { request } from "./components/api.js";
 
 export default function App($app) {
@@ -10,10 +9,10 @@ export default function App($app) {
   };
 
   const tabBar = new TabBar({
+    $app,
     initialState: '',
     onClick: async(name) => {
       this.setState({
-
         //강의 차수 2. 2-2 3:00 부분
         //문법 이해 X 
         //스프레드 연산자?
